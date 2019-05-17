@@ -2,11 +2,10 @@
 
 
 
-# Assembler instructions
+## Assembler instructions
+X
 
-just numers
-
-### functions 
+### Functions 
 
 add - ads a value to an address
 push - adds a value to the next address 
