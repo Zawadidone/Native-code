@@ -10,13 +10,13 @@ Stack pointer = SP, ESP, RSP
 |mov|Copies the data time by referred its second operand into the location referred to by its first operand|
 |push|Places its operand on the top of the hardware stack in memory| 
 |pop|the value of an address wil be saved in the eax register|
-|lea|places the address specified by its second operand into the register specified by its first operand|
+|lea|Places the address specified by its second operand into the register specified by its first operand|
 
 ### Arithmetic and logic Instructions
 |Instruction|Description|
 |---|---|
 |add||
-|sub|subtracting the value of its second operand from the value of its first operand|
+|sub|Subtracts the value of its second operand from the value of its first operand|
 |inc||
 |dec||
 |imul||
