@@ -57,6 +57,16 @@ Takes assembly code and convert it to machine code.
 * GNU Assembler 
 * Netwide Assembler
 
+## Assembly
+
+### Instructions
+
+|||
+|---|---|
+|mov|Moves the value of the second operand in the first operand|
+|add|Adds the second operand to the first operand|
+|sub||
+|||
 
 ## Bits
 
