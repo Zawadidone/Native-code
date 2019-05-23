@@ -1,6 +1,4 @@
-# binary-hacking
-
-
+# Assembly
 
 ## Assembler instructions
 Registers - accessible location in memory
