@@ -22,6 +22,8 @@ Any code that is compiled to machine code.
 
 [x86 Assembly Guide](https://www.cs.virginia.edu/~evans/cs216/guides/x86.html)
 
+[Writing Secure Code](https://www.cprogramming.com/tutorial/secure.html)
+
 Make your own operating system
 * [Linux from scratch](http://www.linuxfromscratch.org/)
 * [OSDev](https://wiki.osdev.org/Main_Page)
