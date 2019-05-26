@@ -42,6 +42,30 @@ Dump of assembler code for function main:
 End of assembler dump.
 ```
 
-Before that I drawed the decisions on paper:
+Before that I drawed the decisions made by the instructions on paper:
 
 ![Disas view with pen](disas-view.JPG)
+
+The following instructions check if the license is correct with the use of strcmp:
+```asm
+0x0000000000400602 <+69>:    call   0x4004b0 <strcmp@plt> ; run strcmp on argument 1
+0x0000000000400607 <+74>:    test   eax,eax ; executes a and bitwise operation: and 1, {first argument} : if result is 0 ZF is set
+0x0000000000400609 <+76>:    jne    0x400617 <main+90> ; if ZF is not set jmp to 617
+0x000000000040060b <+78>:    mov    edi,0x4006ea
+0x0000000000400610 <+83>:    call   0x400480 <puts@plt> ; prints "Access Granted!"
+```
+If the zeroflag is not set (if eax=1) the jne jumps to address 617 and prints "WRONG!". To "crack" the program the result of the bitwise operation and on address 607 should be 0, then the ZF is set and the jump doesn't happen and the program continues execution of instructions.
+
+With the help of GDB I have set ea to the value 0. That is why the ZF is set and the jump does not happen and the program prints "Access Granted!":
+```gdb
+0x0000000000400607 in main ()
+(gdb) p $eflags
+$7 = [ IF ]
+(gdb) set $eax=0
+(gdb) ni
+0x0000000000400609 in main ()
+(gdb) p $eflags
+$8 = [ PF ZF IF ]
+[...]
+Access Granted!
+```
