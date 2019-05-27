@@ -3,6 +3,7 @@
 ## Registers
 
 ### General-Purpose registers (GPR)
+Registers - accessible location in memory
 
 |General-Purpose registers (GPR)|16-bit naming conventions|
 |---|---|
@@ -17,10 +18,11 @@
 
 ![Identifiers to access registers and parts therof](identifiers-registers.png)
 
+**Eflasgs**
+
 The EFLAGS is a 32-bit register used as a collection of bits representing Boolean values to store the results of operations and the state of the processor. 
 
-
-|Bit|Flag|Name|Description|
+|Bit|Abbreviation|Flag|Description|
 |---|---|---|---|
 |0|CF|Carry Flag|Set if the last arithmetic operation carried (addition) or borrowed (subtraction) a bit beyond the size of the register. This is then checked when the operation is followed with an add-with-carry or subtract-with-borrow to deal with values too large for just one register to contain.|
 |||||
@@ -54,11 +56,10 @@ The EFLAGS is a 32-bit register used as a collection of bits representing Boolea
 21. 	ID : Identification Flag. Support for CPUID instruction if can be set.
 
 **Instruction Pointer (EIP)**
+
 The EIP register contains the address of the next instruction to be executed if no branching is done. EIP can only be read trough the stack after a `call` instruction.
 
 ## Assembler instructions
-Registers - accessible location in memory
-Stack pointer = SP, ESP, RSP
 
 ### Data movement instructions
 |Instruction|Description|
