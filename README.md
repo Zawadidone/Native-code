@@ -19,7 +19,7 @@ Any code that is compiled to machine code.
 |Instructions|The basic unit of machine code. An instruction typically performs a single operation|
 |Program counter (PC)|A register that tells the CPU which instruction to execute next|
 |Calls||
-|Syscalls|Tells the kernel to perform an operation|
+|Syscalls|The fundamental interface between an application and the Linux Kernel|
 |Shared libraries|Other binaries. These are DLLs in Windows, .so files on Linux, or dylibs on Mac|
 |Disassembler|Turns machine code into readable text form (Assembly)|
 |||
