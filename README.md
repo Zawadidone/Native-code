@@ -1,6 +1,13 @@
 # [Native-code](https://www.hacker101.com/sessions/native_code_crash_course)
 Any code that is compiled to machine code.
 
+[x86 Assembly Guide](https://www.cs.virginia.edu/~evans/cs216/guides/x86.html)
+
+[x86 Assembly Wiki](https://en.wikibooks.org/wiki/X86_Assembly)
+
+[Writing Secure Code](https://www.cprogramming.com/tutorial/secure.html)
+
+
 |||
 |---|---|
 |Registers|Small areas of memory located in the CPU, where you can store and manipulate data|
@@ -19,10 +26,6 @@ Any code that is compiled to machine code.
 |||
 |||
 |||
-
-[x86 Assembly Guide](https://www.cs.virginia.edu/~evans/cs216/guides/x86.html)
-
-[Writing Secure Code](https://www.cprogramming.com/tutorial/secure.html)
 
 Make your own operating system
 * [Linux from scratch](http://www.linuxfromscratch.org/)
