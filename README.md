@@ -10,7 +10,7 @@ Any code that is compiled to machine code.
 
 |||
 |---|---|
-|Registers|Small areas of memory located in the CPU, where you can store and manipulate data|
+|Registers|Small areas of memory located on the CPU, where you can store and manipulate data|
 |Memory|Where most of the state of an application will really be stored|
 |Physical memory|RAM where the lowest address is 0x00000000 (0) and the highest is 0x03FFFFFF (67108863)|
 |Virtual memory|An abstraction through which normal applications will access physical memory|
