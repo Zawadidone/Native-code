@@ -1,4 +1,4 @@
-# [Native-code](https://www.hacker101.com/sessions/native_code_crash_course)
+# Native-code
 Any code that is compiled to machine code.
 
 [x86 Assembly Guide](https://www.cs.virginia.edu/~evans/cs216/guides/x86.html)
@@ -22,10 +22,7 @@ Any code that is compiled to machine code.
 |Syscalls|The fundamental interface between an application and the Linux Kernel|
 |Shared libraries|Other binaries. These are DLLs in Windows, .so files on Linux, or dylibs on Mac|
 |Disassembler|Turns machine code into readable text form (Assembly)|
-|||
-|||
-|||
-|||
+
 
 Make your own operating system
 * [Linux from scratch](http://www.linuxfromscratch.org/)
