@@ -3,6 +3,23 @@
 [x86 Assembly Guide](https://www.cs.virginia.edu/~evans/cs216/guides/x86.html)
 
 [x86 Assembly Wiki](https://en.wikibooks.org/wiki/X86_Assembly)
+
+|Defintion|Description|
+|---|---|
+|Registers|Small areas of memory located on the CPU, where you can store and manipulate data|
+|Memory|Where most of the state of an application will really be stored|
+|Physical memory|RAM where the lowest address is 0x00000000 (0) and the highest is 0x03FFFFFF (67108863)|
+|Virtual memory|An abstraction through which normal applications will access physical memory|
+|Page table|Splits the address space of a process into a series of pages|
+|Stack|Part of memory|
+|Instructions|The basic unit of machine code. An instruction typically performs a single operation|
+|Program counter (PC)|A register that tells the CPU which instruction to execute next|
+|Calls||
+|Syscalls|The fundamental interface between an application and the Linux Kernel|
+|Shared libraries|Other binaries. These are DLLs in Windows, .so files on Linux, or dylibs on Mac|
+|Disassembler|Turns machine code into readable text form (Assembly)|
+
+
 ## Registers
 
 ### General-Purpose registers (GPR)
