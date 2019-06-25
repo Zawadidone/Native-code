@@ -46,7 +46,7 @@ The EFLAGS is a 32-bit register used as a collection of bits representing Boolea
 |---|---|---|---|
 |0|CF|Carry Flag|Set if the last arithmetic operation carried (addition) or borrowed (subtraction) a bit beyond the size of the register. This is then checked when the operation is followed with an add-with-carry or subtract-with-borrow to deal with values too large for just one register to contain|
 |2|PF|Parity Flag|Set if the number of set bits in the least significant byte is a multiple of 2|
-|4|AF|Adjust Flag||Carry of Binary Code Decimal (BCD) numbers arithmetic operations
+|4|AF|Adjust Flag||Carry of Binary Code Decimal (BCD) numbers arithmetic operations|
 |6|ZF|Zero Flag|Set if the result of an operation is Zero (0)|
 |7|SF|Sign Flag|Set if the result of an operation is negative|
 |8|TF|Trap Flag|Set if step by step debugging|
@@ -64,37 +64,56 @@ The EFLAGS is a 32-bit register used as a collection of bits representing Boolea
 
 **Instruction Pointer (EIP)**
 
-The EIP register contains the address of the next instruction to be executed if no branching is done. EIP can only be read trough the stack after a `call` instruction.
+The IP register contains the address of the next instruction to be executed if no branching is done. IP can only be read trough the stack after a `call` instruction.
+
+**Memory**
+The x86 architecture is little-endian, meaning that multi-byte values are written least significant byte first. (This refers only to the ordering of the bytes, not to the bits.) 
 
 ## Assembler instructions 
-https://en.wikibooks.org/wiki/X86_Assembly/Data_Transfer
 
 ### Data movement instructions
-|Instruction|Description|
-|---|---|
-|mov|Copies the data time by referred its second operand into the location referred to by its first operand|
-|push|Places its operand on the top of the hardware stack in memory| 
-|pop|the value of an address wil be saved in the eax register|
-|lea|Places the address specified by its second operand into the register specified by its first operand|
+Some of the most important and most frequently used instructions are those that move data. Without them, there would be no way for registers or memory to even have anything in them to operate on. 
+|Instruction|Example|Description|
+|---|---|---|
+|mov|`mov dest, src`|The mov instruction copies the `src` operand into `the` dest operand|
+|lea|lea `dest`, `src`|The `lea` instruction calculates the address of the `src` operand and loads it into the `dest` operand|
+|xchg|xchg `dest`, `src`|The xchg instruction swaps the `src` operand with the `dest` operand. It's like doing three move operations: from `dest` to a temporary (another register), then from `src` to `dest`, then from the temporary to `src`, except that no register needs to be reserved for temporary storage|
+|cmpxchg|cmpxchg `arg1`, `arg2`|The instruction compares arg1 to AL/AX/EAX and if they are equal sets arg1 to arg2 and sets the zero flag, otherwise it sets AL/AX/EAX to arg1 and clears the zero flag|
+|movzx|movzx `dest`, `src`|The movz instruction copies the `src` operand in the `des`t operand and pads the remaining bits not provided by src with zeros (0)|
+|movsx|movsx `dest`, `src`|The movs instruction copies the `src` operand in the `dest` operand and pads the remaining bits not provided by `src` with the sign bit (the MSB) of `src`|
+|movsb|movsb|The `movsb` instruction copies one byte from the memory location specified in `esi` to the location specified in `edi`. If the direction flag is cleared, then `esi` and `edi` are incremented after the operation. Otherwise, if the direction flag is set, then the pointers are decremented. In that case the copy would happen in the reverse direction, starting at the highest address and moving toward lower addresses until `ecx` is zero.|
+|movsw|movsw|The `movsw` instruction copies one word (two bytes) from the location specified in `esi` to the location specified in `edi`. It basically does the same thing as `movsb`, except with words instead of bytes. |
+
+
 
 ### Arithmetic and logic Instructions
-|Instruction|Description|
-|---|---|
-|add||
-|sub|Subtracts the value of its second operand from the value of its first operand|
-|inc||
-|dec||
-|imul||
-|idiv||
-|and||
-|or||
-|xor||
-|not||
-|negate||
-|shl||
-|shr||
-|jmp||
-|test|Test operand(sets status flags)|
+Arithmetic instructions take two operands: a destination and a source. The destination must be a register or a memory location. The source may be either a memory location, a register, or a constant value. Note that at least one of the two must be a register, because operations may not use a memory location as both a source and a destination. 
+|Instruction|Example|Description|
+|---|---|---|
+|add|add `dest`, `src`|This adds `src` to `dest`|
+|sub|sub `dest`, `src`|Like ADD, only it subtracts source from destination instead. In C: `dest -= src;`|
+|mul|mul `arg`|This multiplies `arg` by the value of corresponding byte-length in the `AX` register|
+|div|div `arg`|This divides the value in the dividend register(s) by `arg`|
+|idiv|idiv `arg`|As div, only signed|
+|neg|neg `arg`|Arithmetically negates the argument (i.e. two's complement negation)|
+||||
+|dec|||
+|imul|||
+|idiv|||
+|and|||
+|or|||
+|xor|||
+|not|||
+|negate|||
+|shl|||
+|shr|||
+|jmp|||
+|test|||
+
+||||
+||||
+||||
+||||
 
 ### Control flow instruction
 |Instruction|Description|
