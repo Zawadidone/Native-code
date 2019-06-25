@@ -96,28 +96,33 @@ Arithmetic instructions take two operands: a destination and a source. The desti
 |div|div `arg`|This divides the value in the dividend register(s) by `arg`|
 |idiv|idiv `arg`|As div, only signed|
 |neg|neg `arg`|Arithmetically negates the argument (i.e. two's complement negation)|
-||||
-|dec|||
-|imul|||
-|idiv|||
-|and|||
-|or|||
-|xor|||
-|not|||
-|negate|||
-|shl|||
-|shr|||
-|jmp|||
-|test|||
-
-||||
-||||
-||||
-||||
+|adc|adc `dest`, `src`|Add with carry. Adds `src` + `CF` to `dest`, storing result in `dest`. Usually follows a normal add instruction to deal with values twice as large as the size of the register. In the following example, `sourc`e contains a 64-bit number which will be added to `destination`|
+|sbb|sbb `dest`, `src`|Subtract with borrow. Subtracts `src` + `CF` from `dest`, storing result in `dest`|
+|inc|inc `arg`|Increments the register value in the argument by 1. Performs much faster than `add arg, 1`|
+|dec|dec `arg`|Decrements the register value in the argument by 1. Performs much faster than `sub arg, 1`|
 
 ### Control flow instruction
-|Instruction|Description|
-|---|---|
+Almost all programming languages have the ability to change the order in which statements are evaluated, and assembly is no exception. The instruction pointer (EIP) register contains the address of the next instruction to be executed. To change the flow of control, the programmer must be able to modify the value of EIP. This is where control flow functions come in. 
+|Instruction|Example|Description|
+|---|---|---|
+||||
+||||
+||||
+||||
+||||
+||||
+||||
+||||
+||||
+||||
+||||
+||||
+||||
+||||
+||||
+
+
+
 |jmp||
 |j||
 |cmp||
