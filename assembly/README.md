@@ -67,12 +67,14 @@ The EFLAGS is a 32-bit register used as a collection of bits representing Boolea
 The IP register contains the address of the next instruction to be executed if no branching is done. IP can only be read trough the stack after a `call` instruction.
 
 **Memory**
+
 The x86 architecture is little-endian, meaning that multi-byte values are written least significant byte first. (This refers only to the ordering of the bytes, not to the bits.) 
 
 ## Assembler instructions 
 
 ### Data movement instructions
 Some of the most important and most frequently used instructions are those that move data. Without them, there would be no way for registers or memory to even have anything in them to operate on. 
+
 |Instruction|Example|Description|
 |---|---|---|
 |mov|`mov dest, src`|The mov instruction copies the `src` operand into `the` dest operand|
@@ -88,6 +90,7 @@ Some of the most important and most frequently used instructions are those that 
 
 ### Arithmetic and logic Instructions
 Arithmetic instructions take two operands: a destination and a source. The destination must be a register or a memory location. The source may be either a memory location, a register, or a constant value. Note that at least one of the two must be a register, because operations may not use a memory location as both a source and a destination. 
+
 |Instruction|Example|Description|
 |---|---|---|
 |add|add `dest`, `src`|This adds `src` to `dest`|
@@ -103,35 +106,70 @@ Arithmetic instructions take two operands: a destination and a source. The desti
 
 ### Control flow instruction
 Almost all programming languages have the ability to change the order in which statements are evaluated, and assembly is no exception. The instruction pointer (EIP) register contains the address of the next instruction to be executed. To change the flow of control, the programmer must be able to modify the value of EIP. This is where control flow functions come in. 
+
 |Instruction|Example|Description|
 |---|---|---|
-||||
-||||
-||||
-||||
-||||
-||||
-||||
-||||
-||||
-||||
-||||
-||||
-||||
-||||
-||||
+|test|test `arg1`, `arg0`|Performs a bit-wise logical `and` on `arg0` and `arg1` the result of which we will refer to as `commonBits` and sets the `ZF`(zero), `SF`(sign) and `PF` (parity) flags based on `commonBits`|
+|cmp|cmp `minuend`, `subtrahend`|Performs a comparison operation between `minuend` and `subtrahend`. The comparison is performed by a (signed) subtraction of `subtrahend` from `minuend`, the results of which can be called `difference`. `Difference` is then discarded. If `subtrahend` is an immediate value it will be sign extended to the length of `minuend`. The `EFLAGS` register is set in the same manner as a `sub` instruction|
+|jmp|jmp `loc`|Loads `EIP` with the specified address (i.e. the next instruction executed will be the one specified by `jmp`)|
+|je|je `loc`|Loads `EIP` with the specified address, if operands of previous `cmp` instruction are equal: `ZF=1`|
+|jne|jne `loc`|Loads `EIP` with the specified address, if operands of previous `cmp` instruction are not equal: `ZF=0`|
+|jg|jg `loc`|Loads `EIP` with the specified address, if the `minuend` of the previous `cmp` instruction is greater than the second (performs signed comparison): `SF=0`, `ZF=0`|
+|jge|jge `loc`|Loads `EIP` with the specified address, if the `minuend` of the of previous `cmp` instruction is greater than or equal to the `subtrahend` (performs signed comparison): `SF=OF`, `ZF=1`|
+|ja|ja `loc`|Loads `EIP` with the specified address, if the `minuend` of the previous `cmp` instruction is greater than the `subtrahend`. `ja` is the same as `jg`, except that it performs an unsigned comparison: `CF=0`, `ZF=0`|
+|jae|jae `loc`|Loads `EIP` with the specified address, if the `minuend` of previous `cmp` instruction is greater than or equal to the `subtrahend`. `jae` is the same as `jge`, except that it performs an unsigned comparison: `CF=0`, `ZF=1`|
+|jl|jl `loc`|The criterion required for a `jl` is that `SF` ≠ `OF`. It loads `EIP` with the specified address, if the criterion is met. So either `SF` or `OF` can be set, but not both in order to satisfy this criterion|
+|jle|jle `loc`|Loads EIP with the specified address, if the minuend of previous cmp instruction is lesser than or equal to the subtrahend: `SF`≠`OF` or `ZF=1`|
+|jb|jb `loc`|Loads `EIP` with the specified address, if first operand of previous CMP instruction is lesser than the second. `jb` is the same as `jl`, except that it performs an unsigned comparison: `CF=1`|
+|jbe|jbe `loc`|Loads EIP with the specified address, if minuend of previous cmp instruction is lesser than or equal to the subtrahend. jbe is the same as jle, except that it performs an unsigned comparison: `CF=1` or `ZF=1`|
+|jo|jo `loc`|Loads `EIP` with the specified address, if the overflow bit is set on a previous arithmetic expression: `OF=1`|
+|jno|jno `loc`|Loads `EIP` with the specified address, if the overflow bit is not set on a previous arithmetic expression: `OF=0`|
+|jz|jz `loc`|Loads `EIP` with the specified address, if the zero bit is set from a previous arithmetic expression. `jz` is identical to `je`: `ZF=1`|
+|jnz|jnz `loc`|Loads `EIP` with the specified address, if the zero bit is not set from a previous arithmetic expression. `jnz` is identical to `jne`: `ZF=0`|
+|js|js `loc`|Loads `EIP` with the specified address, if the sign bit is set from a previous arithmetic expression: `SF=1`|
+|jns|jns `loc`|Loads `EIP` with the specified address, if the sign bit is not set from a previous arithmetic expression: `SF=0`|
 
+### Other instructions
 
+|Instruction|Example|Description|
+|---|---|---|
+|call|call `proc`|Pushes the address of the instruction that follows the `call` call, i.e. usually the next line in your source code, onto the top of the stack, and then jumps to the specified location|
+|push|push `arg`|This instruction decrements the stack pointer and stores the data specified as the argument into the location pointed to by the stack pointer|
+|pop|pop `arg`|This instruction loads the data stored in the location pointed to by the stack pointer into the argument specified and then increments the stack pointer|
+|ret|ret `[val]`|Loads the next value on the stack into `EIP`, and then pops the specified number of bytes off the stack. If `val` is not supplied, the instruction will not pop any values off the stack after returning|
+|loop|loop `arg`|The `loop` instruction decrements `ECX` and jumps to the address specified by `arg` unless decrementing `ECX` caused its value to become zero|
+|loopcc|loopcc `arg`|These loop instructions decrement `ECX` and jump to the address specified by `arg` if their condition is satisfied (that is, a specific flag is set), unless decrementing `ECX` caused its value to become zero|
+|enter||`enter` creates a stack frame with the specified amount of space allocated on the stack|
+|leave||`leave` destroys the current stack frame, and restores the previous frame|
+|hlt||Halts the processor. Execution will be resumed after processing next hardware interrupt, unless `IF` is cleared|
+|nop||No operation. This instruction doesn't do anything, but wastes (an) instruction cycle(s) in the processor|
+|lock||Asserts #LOCK prefix on next instruction|
+|wait||Waits for the FPU to finish its last calculation|
 
-|jmp||
-|j||
-|cmp||
-|call||
-|ret||
-A Call is just an unconditional GOTO that pushes the next address  on the stack, so  RET instrutions can later pop it off and keep going where the Call left off.
+**Call**
+
+A Call is just an unconditional GOTO that pushes the next address  on the stack, so  RET instructions can later pop it off and keep going where the Call left off.
 
 
 ## Bits
+
+### Bitwise instructions
+|Instruction|Example|Description|
+|---|---|---|
+|and|and `dest`, `src`|Performs a bit-wise `and` of the two operands, and stores the result in `dest`|
+|or|or `dest`, `src`|Performs a bit-wise `or` of the two operands, and stores the result in `dest`|
+|xor|xor `dest`, `src`|Performs a bit-wise `xor`of the two operands, and stores the result in `dest`|
+|not|not `arg`|Performs a bit-wise inversion of `arg`|
+|shr|shr `dest`, `src`|Logical shift `dest` to the right by `src` bits|
+|shl|shl `dest`, `src`|Logical shift `dest` to the left by `src` bits|
+|sar|sar `dest`, `src`|Arithmetic shift `dest` to the right by `src` bits. Spaces are filled with sign bit (to maintain sign of original value), which is the original highest bit|
+|sal|sal `dest`, `src`|Arithmetic shift `dest` to the left by `src` bits. The bottom bits do not affect the sign, so the bottom bits are filled with zeros|
+|shld|shld `dest`, `src`, `cnt`|The operation performed by `shld` is to shift the most significant `cnt` bits out of `dest`, but instead of filling up the least significant bits with zeros, they are filled with the most significant `cnt` bits of `src`|
+|shrd|shrd `dest`, `src`, `cnt`|Likewise, the `shrd` operation shifts the least significant `cnt` bits out of `dest`, and fills up the most significant `cnt` bits with the least significant bits of the `src` operand|
+|ror|ror `dest`, `src`|Rotate `dest` to the right by `src` bits|
+|rol|ror `dest`, `src`|Rotate `dest` to the left by `src` bits|
+|rcr|rcr `dest`, `src`|Rotate `dest` to the right by `src` bits with carry|
+|rcl|rcl `dest`, `src`|Rotate `dest` to the left by `src` bits with carry|
 
 ### Bitwise operators
 
