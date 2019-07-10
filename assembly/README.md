@@ -38,7 +38,7 @@ Registers - accessible location in memory
 
 ![Identifiers to access registers and parts therof](identifiers-registers.png)
 
-**Eflasgs**
+**Eflags**
 
 The EFLAGS is a 32-bit register used as a collection of bits representing Boolean values to store the results of operations and the state of the processor. 
 
@@ -133,6 +133,9 @@ Almost all programming languages have the ability to change the order in which s
 
 |Instruction|Example|Description|
 |---|---|---|
+|mov BYTE PTR|mov BYTE PTR `dest, src`|Move `src` into the single byte at the address stored in `dest`|
+|mov WORD PTR|mov WORD PTR `dest, src`|Move the 16-bit integer representation of `src` into the 2 bytes starting at the address in `dest`|
+|mov DWORD PTR|mov DWORD PTR `dest, src`|Move the 32-bit integer representation of `dest` into the 4 bytes starting at the address in `src`|
 |call|call `proc`|Pushes the address of the instruction that follows the `call` call, i.e. usually the next line in your source code, onto the top of the stack, and then jumps to the specified location|
 |push|push `arg`|This instruction decrements the stack pointer and stores the data specified as the argument into the location pointed to by the stack pointer|
 |pop|pop `arg`|This instruction loads the data stored in the location pointed to by the stack pointer into the argument specified and then increments the stack pointer|
