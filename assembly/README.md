@@ -15,13 +15,27 @@
 |Instructions|The basic unit of machine code. An instruction typically performs a single operation|
 |Program counter (PC)|A register that tells the CPU which instruction to execute next|
 |Calls||
-|Syscalls|The fundamental interface betwee n an application and the Linux Kernel|
+|Syscalls|The fundamental interface between an application and the Linux Kernel|
 |Shared libraries|Other binaries. These are DLLs in Windows, .so files on Linux, or dylibs on Mac|
 |Disassembler|Turns machine code into readable text form (Assembly)|
 
 ## Stack
 
 [Where the top of the stack is on x86 ](https://eli.thegreenplace.net/2011/02/04/where-the-top-of-the-stack-is-on-x86/)
+
+Every process has at least one thread and every thread has its own stack. And within the stack of every thread, each function has its own stack frame.
+
+**Base pointer (EBP)**
+
+The EBP is the beginning of a stack frame.
+
+**Stack pointer (ESP)**
+
+The ESP always points to the top of the stack. If something is added to the stack, the stack grows. This means the ESP needs to be corrected to the point the new "top" of the stack, which is done by decrementing the ESP.
+
+**Heap**
+
+The heap is memory space that can be allocated by a process when it needs more memory. Each process has one heap and it shared among the different threads.
 
 ## Registers
 
@@ -41,7 +55,7 @@ Registers - accessible location in memory
 
 ![Identifiers to access registers and parts therof](identifiers-registers.png)
 
-**Eflags**
+### Status flag registers
 
 The EFLAGS is a 32-bit register used as a collection of bits representing Boolean values to store the results of operations and the state of the processor. 
 
@@ -54,8 +68,8 @@ The EFLAGS is a 32-bit register used as a collection of bits representing Boolea
 |7|SF|Sign Flag|Set if the result of an operation is negative|
 |8|TF|Trap Flag|Set if step by step debugging|
 |9|IF|Interruption Flag|Set if interrupts are enabled|
-|10|DF|Direction Flag|Stream direction. If set, string operations will decrement their pointer rather than incrementing it, reading memory backwards|
-|11|OF|Overflow Flag|Set if signed arithmetic operations result in a value too large for the register to contain|
+|10|DF|Direction Flag|Stream direction. If set, string operations will decrement their pointer rather than incrementing it, reading memory backward |
+|11|OF|Overflow Flag|Set if signed arithmetic operations result in value too large for the register to contain|
 |12-13|IOPL|I/O Privilege Level field (2 bits)|I/O Privilege Level of the current process|
 |14|NT|Nested Task flag|Controls chaining of interrupts. Set if the current process is linked to the next process|
 |16|RF|Resume Flag|Response to debug exceptions|
@@ -67,7 +81,7 @@ The EFLAGS is a 32-bit register used as a collection of bits representing Boolea
 
 **Instruction Pointer (EIP)**
 
-The IP register contains the address of the next instruction to be executed if no branching is done. IP can only be read trough the stack after a `call` instruction.
+The IP register contains the address of the next instruction to be executed if no branching is done. IP can only be read through the stack after a `call` instruction.
 
 **Memory**
 
@@ -82,27 +96,27 @@ Some of the most important and most frequently used instructions are those that 
 |---|---|---|
 |mov|`mov dest, src`|The mov instruction copies the `src` operand into `the` dest operand|
 |lea|lea `dest`, `src`|The `lea` instruction calculates the address of the `src` operand and loads it into the `dest` operand|
-|xchg|xchg `dest`, `src`|The xchg instruction swaps the `src` operand with the `dest` operand. It's like doing three move operations: from `dest` to a temporary (another register), then from `src` to `dest`, then from the temporary to `src`, except that no register needs to be reserved for temporary storage|
+|xchg|xchg `dest`, `src`|The xchg instruction swaps the `src` operand with the `dest` operand. It's like doing three-move operations: from `dest` to a temporary (another register), then from `src` to `dest`, then from the temporary to `src`, except that no register needs to be reserved for temporary storage|
 |cmpxchg|cmpxchg `arg1`, `arg2`|The instruction compares arg1 to AL/AX/EAX and if they are equal sets arg1 to arg2 and sets the zero flag, otherwise it sets AL/AX/EAX to arg1 and clears the zero flag|
-|movzx|movzx `dest`, `src`|The movz instruction copies the `src` operand in the `des`t operand and pads the remaining bits not provided by src with zeros (0)|
+|movzx|movzx `dest`, `src`|The movz instruction copies the `src` operand in the `dest` operand and pads the remaining bits not provided by src with zeros (0)|
 |movsx|movsx `dest`, `src`|The movs instruction copies the `src` operand in the `dest` operand and pads the remaining bits not provided by `src` with the sign bit (the MSB) of `src`|
-|movsb|movsb|The `movsb` instruction copies one byte from the memory location specified in `esi` to the location specified in `edi`. If the direction flag is cleared, then `esi` and `edi` are incremented after the operation. Otherwise, if the direction flag is set, then the pointers are decremented. In that case the copy would happen in the reverse direction, starting at the highest address and moving toward lower addresses until `ecx` is zero.|
+|movsb|movsb|The `movsb` instruction copies one byte from the memory location specified in `esi` to the location specified in `edi`. If the direction flag is cleared, then `esi` and `edi` are incremented after the operation. Otherwise, if the direction flag is set, then the pointers are decremented. In that case, the copy would happen in the reverse direction, starting at the highest address and moving toward lower addresses until `ecx` is zero.|
 |movsw|movsw|The `movsw` instruction copies one word (two bytes) from the location specified in `esi` to the location specified in `edi`. It basically does the same thing as `movsb`, except with words instead of bytes. |
 
 
 
 ### Arithmetic and logic Instructions
-Arithmetic instructions take two operands: a destination and a source. The destination must be a register or a memory location. The source may be either a memory location, a register, or a constant value. Note that at least one of the two must be a register, because operations may not use a memory location as both a source and a destination. 
+Arithmetic instructions take two operands: a destination and a source. The destination must be a register or a memory location. The source may be either a memory location, a register or a constant value. Note that at least one of the two must be a register, because operations may not use a memory location as both a source and a destination. 
 
 |Instruction|Example|Description|
 |---|---|---|
 |add|add `dest`, `src`|This adds `src` to `dest`|
 |sub|sub `dest`, `src`|Like ADD, only it subtracts source from destination instead. In C: `dest -= src;`|
 |mul|mul `arg`|This multiplies `arg` by the value of corresponding byte-length in the `AX` register|
-|div|div `arg`|This divides the value in the dividend register(s) by `arg`|
+|div|div `arg`|This divides the value in the dividend register(s) by `arg` and stores the result in the `EAX` and the rest in `EDX`.|
 |idiv|idiv `arg`|As div, only signed|
 |neg|neg `arg`|Arithmetically negates the argument (i.e. two's complement negation)|
-|adc|adc `dest`, `src`|Add with carry. Adds `src` + `CF` to `dest`, storing result in `dest`. Usually follows a normal add instruction to deal with values twice as large as the size of the register. In the following example, `sourc`e contains a 64-bit number which will be added to `destination`|
+|adc|adc `dest`, `src`|Add with carry. Adds `src` + `CF` to `dest`, storing result in `dest`. Usually follows a normal add instruction to deal with values twice as large as the size of the register. In the following example, `source` contains a 64-bit number which will be added to `destination`|
 |sbb|sbb `dest`, `src`|Subtract with borrow. Subtracts `src` + `CF` from `dest`, storing result in `dest`|
 |inc|inc `arg`|Increments the register value in the argument by 1. Performs much faster than `add arg, 1`|
 |dec|dec `arg`|Decrements the register value in the argument by 1. Performs much faster than `sub arg, 1`|
@@ -121,7 +135,7 @@ Almost all programming languages have the ability to change the order in which s
 |jge|jge `loc`|Loads `EIP` with the specified address, if the `minuend` of the of previous `cmp` instruction is greater than or equal to the `subtrahend` (performs signed comparison): `SF=OF`, `ZF=1`|
 |ja|ja `loc`|Loads `EIP` with the specified address, if the `minuend` of the previous `cmp` instruction is greater than the `subtrahend`. `ja` is the same as `jg`, except that it performs an unsigned comparison: `CF=0`, `ZF=0`|
 |jae|jae `loc`|Loads `EIP` with the specified address, if the `minuend` of previous `cmp` instruction is greater than or equal to the `subtrahend`. `jae` is the same as `jge`, except that it performs an unsigned comparison: `CF=0`, `ZF=1`|
-|jl|jl `loc`|The criterion required for a `jl` is that `SF` ≠ `OF`. It loads `EIP` with the specified address, if the criterion is met. So either `SF` or `OF` can be set, but not both in order to satisfy this criterion|
+|jl|jl `loc`|The criterion required for a `jl` is that `SF` ≠ `OF`. It loads `EIP` with the specified address if the criterion is met. So either `SF` or `OF` can be set, but not both in order to satisfy this criterion|
 |jle|jle `loc`|Loads EIP with the specified address, if the minuend of previous cmp instruction is lesser than or equal to the subtrahend: `SF`≠`OF` or `ZF=1`|
 |jb|jb `loc`|Loads `EIP` with the specified address, if first operand of previous CMP instruction is lesser than the second. `jb` is the same as `jl`, except that it performs an unsigned comparison: `CF=1`|
 |jbe|jbe `loc`|Loads EIP with the specified address, if minuend of previous cmp instruction is lesser than or equal to the subtrahend. jbe is the same as jle, except that it performs an unsigned comparison: `CF=1` or `ZF=1`|
@@ -139,7 +153,7 @@ Almost all programming languages have the ability to change the order in which s
 |mov BYTE PTR|mov BYTE PTR `dest, src`|Move `src` into the single byte at the address stored in `dest`|
 |mov WORD PTR|mov WORD PTR `dest, src`|Move the 16-bit integer representation of `src` into the 2 bytes starting at the address in `dest`|
 |mov DWORD PTR|mov DWORD PTR `dest, src`|Move the 32-bit integer representation of `src` into the 4 bytes starting at the address in `dest`|
-|call|call `proc`|Pushes the address of the instruction that follows the `call` call, i.e. usually the next line in your source code, onto the top of the stack, and then jumps to the specified location|
+|call|call `proc`|Pushes the address of the instruction that follows the `call`, i.e. usually the next line in your source code, onto the top of the stack, and then jumps to the specified location|
 |push|push `arg`|This instruction decrements the stack pointer and stores the data specified as the argument into the location pointed to by the stack pointer|
 |pop|pop `arg`|This instruction loads the data stored in the location pointed to by the stack pointer into the argument specified and then increments the stack pointer|
 |ret|ret `[val]`|Loads the next value on the stack into `EIP`, and then pops the specified number of bytes off the stack. If `val` is not supplied, the instruction will not pop any values off the stack after returning|
@@ -152,9 +166,17 @@ Almost all programming languages have the ability to change the order in which s
 |lock||Asserts #LOCK prefix on next instruction|
 |wait||Waits for the FPU to finish its last calculation|
 
+### Calling convetions
+
 **Call**
 
-A Call is just an unconditional GOTO that pushes the next address  on the stack, so  RET instructions can later pop it off and keep going where the Call left off.
+A Call is just an unconditional GOTO that pushes the next address on the stack, so  RET instructions can later pop it off and keep going where the Call left off.
+
+|Convention|Description|
+|stdcall|In the `stdcall`, function arguments are passed from right to left and the caleé is in charge of cleaning up the stack. Return values are stored in `EAX`. The `stdcall` is a combination of two other calling conventions, `pascal` and `cdecl`|
+|cdecl|The `cdecl` (short for c declaration) is a calling convention that originates from the C programming language and is used by many C compilers for the x86 architecture. The main difference of `cdecl` and `stdcall` is that in a `cdecl`, the caller, not the calleé, is responsible for cleaning up the stack|
+|pascal|The `pascal` calling convention origins from the Pascal programming language and the ain difference between it and `stcall` is that the parameters are pushed to the stack from left to right|
+|fastcall|The `fastcall` is a non-standardized calling convention. It is usually recognized through the way it sends function arguments. While all the above conventions use the stack to store the function arguments, the fastcall convention tends to load them into registers. This results in less memory interaction and increases the performance of a call, hence the name|
 
 
 ## Bits
@@ -177,6 +199,15 @@ A Call is just an unconditional GOTO that pushes the next address  on the stack,
 |rcr|rcr `dest`, `src`|Rotate `dest` to the right by `src` bits with carry|
 |rcl|rcl `dest`, `src`|Rotate `dest` to the left by `src` bits with carry|
 
+### Data types
+
+|Data type|Bits|Max value|
+|---|---|---|
+|bit|1-bit|0-1|
+|byte|8-bit|0-225|
+|word|16-bit|65535|
+|dword|32-bit|4294967295|
+
 ### Bitwise operators
 
 **NOT** - Bits that are 0 become 1 and those that are 1 become 1:
@@ -192,7 +223,7 @@ A Call is just an unconditional GOTO that pushes the next address  on the stack,
 0001
 ```
 
-**OR** - Perform the OR operation on each of corresponding bits. The result is 0 if both bits are 0, while otherwise the result is 1:
+**OR** - Perform the OR operation on each of corresponding bits. The result is 0 if both bits are 0, while otherwise, the result is 1:
 ```
 0101 (decimal 5)
 0011 (decimal 3)
@@ -207,7 +238,7 @@ A Call is just an unconditional GOTO that pushes the next address  on the stack,
 ```
 
 ### Bit shifts
-The bit shifts are sometimes considered bitwise operations, because they treat a value as a series of bits rather than as a numerical quantity. In these operations the digits are moved, or shifted, to the left or right. Registers in a computer processor have a fixed width, so some bits wil be "shifted out" of the register at one end, while the same number of bits are "shifted in" from the other end.
+The bit shifts are sometimes considered bitwise operations because they treat a value as a series of bits rather than as a numerical quantity. In these operations, the digits are moved, or shifted, to the left or right. Registers in a computer processor have a fixed width, so some bits wil be "shifted out" of the register at one end, while the same number of bits are "shifted in" from the other end.
 
 #### Arithmetic shift
 In an arithmetic shift, the bits that are shifted out of either end are discarded.
@@ -225,7 +256,7 @@ In an arithmetic shift, the bits that are shifted out of either end are discarde
 ```
 
 #### Logical shift
-In a logical shift, zeros are shifted in to replace the discarded bits. Therefore, the logical and arithmetic left-shifts are exactly the same. However, as the logical right-shift insert value 0 bits into the most significant bit, instead of copying the sign bit.
+In a logical shift, zeros are shifted in to replace the discarded bits. Therefore, logical and arithmetic left-shifts are exactly the same. However, as the logical right-shift insert value 0 bits into the most significant bit, instead of copying the sign bit.
 
 **Left logical shift** - Bits are shifted to the left 
 ```
@@ -240,7 +271,7 @@ In a logical shift, zeros are shifted in to replace the discarded bits. Therefor
 ```
 
 #### Circular shift
-Bitwise rotation or bit rotation
+Bitwise rotation orbit rotation
 
 **Left circular shift** -  Bits are shifted to the left and the value shifted out is the sign bit
 ``` 
