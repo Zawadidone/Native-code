@@ -173,6 +173,7 @@ Almost all programming languages have the ability to change the order in which s
 A Call is just an unconditional GOTO that pushes the next address on the stack, so  RET instructions can later pop it off and keep going where the Call left off.
 
 |Convention|Description|
+|---|---|
 |stdcall|In the `stdcall`, function arguments are passed from right to left and the caleé is in charge of cleaning up the stack. Return values are stored in `EAX`. The `stdcall` is a combination of two other calling conventions, `pascal` and `cdecl`|
 |cdecl|The `cdecl` (short for c declaration) is a calling convention that originates from the C programming language and is used by many C compilers for the x86 architecture. The main difference of `cdecl` and `stdcall` is that in a `cdecl`, the caller, not the calleé, is responsible for cleaning up the stack|
 |pascal|The `pascal` calling convention origins from the Pascal programming language and the ain difference between it and `stcall` is that the parameters are pushed to the stack from left to right|
