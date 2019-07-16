@@ -19,7 +19,11 @@
 |Shared libraries|Other binaries. These are DLLs in Windows, .so files on Linux, or dylibs on Mac|
 |Disassembler|Turns machine code into readable text form (Assembly)|
 
-## Stack
+## Memory
+
+![Memory](virtual-memory.jpg)
+
+### Stack
 
 [Where the top of the stack is on x86 ](https://eli.thegreenplace.net/2011/02/04/where-the-top-of-the-stack-is-on-x86/)
 
