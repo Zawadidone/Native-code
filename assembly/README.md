@@ -14,7 +14,7 @@
 |Stack|Part of memory|
 |Instructions|The basic unit of machine code. An instruction typically performs a single operation|
 |Program counter (PC)|A register that tells the CPU which instruction to execute next|
-|Calls||
+|Calls|System calls are APIs for the interface between the user space and the kernel space|
 |Syscalls|The fundamental interface between an application and the Linux Kernel|
 |Shared libraries|Other binaries. These are DLLs in Windows, .so files on Linux, or dylibs on Mac|
 |Disassembler|Turns machine code into readable text form (Assembly)|
