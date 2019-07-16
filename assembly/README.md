@@ -209,7 +209,7 @@ A Call is just an unconditional GOTO that pushes the next address on the stack, 
 |Data type|Bits|Max value|
 |---|---|---|
 |bit|1-bit|0-1|
-|byte|8-bit|0-225|
+|byte|8-bit|0-255|
 |word|16-bit|65535|
 |dword|32-bit|4294967295|
 
