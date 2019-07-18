@@ -23,3 +23,21 @@ add_executable(while while.c)
 add_executable(functions functions.c)
 
 add_executable(static static.c)
+
+add_executable(pointer pointer.c)
+
+add_executable(struct struct.c)
+
+add_executable(function_arg function_arg.c)
+
+add_executable(function_arg_by_reference function_arg_by_reference.c)
+
+add_executable(dynamic_allocation dynamic_allocation.c)
+
+add_executable(dynamic dynamic.c)
+
+add_executable(point_array point_array.c)
+
+add_executable(recursion recursion.c)
+
+add_executable(recursion-fact recursion-fact.c)
