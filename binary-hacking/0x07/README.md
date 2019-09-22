@@ -46,7 +46,7 @@ Before that I drawed the decisions made by the instructions on paper:
 
 ![Disas view with pen](disas-view.JPG)
 
-The following instructions check if the license is correct with the use of strcmp:
+The following instructions check if the license is correct with the use of the function strcmp:
 ```asm
 0x0000000000400602 <+69>:    call   0x4004b0 <strcmp@plt> ; run strcmp on argument 1
 0x0000000000400607 <+74>:    test   eax,eax ; executes a and bitwise operation: and 1, {first argument} : if result is 0 ZF is set

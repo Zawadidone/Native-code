@@ -4,7 +4,7 @@ The folllowing files were provided by LifeOverflow to reverse and crack a simple
 * [lincense_1](https://github.com/Zawadidone/Native-code/blob/master/binary-hacking/0x05/license_1)
 
 After using GDB I added the following comments to the assembler code, to explain the decisions made by the instructions:
-```asm
+```assembly
 Dump of assembler code for function main:
    0x00000000004005bd <+0>:     push   rbp
    0x00000000004005be <+1>:     mov    rbp,rsp
