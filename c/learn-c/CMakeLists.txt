@@ -41,3 +41,5 @@ add_executable(point_array point_array.c)
 add_executable(recursion recursion.c)
 
 add_executable(recursion-fact recursion-fact.c)
+
+add_executable(test test.c)

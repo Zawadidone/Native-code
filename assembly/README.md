@@ -31,7 +31,7 @@ The code segment also known as a **text segment**, is where a portion of an obje
 
 The .data segment contains any global or static variables which have a pre-defined value and can be modified. That is any variables that are not defined within a function (and thus can be accessed from anywhere) or are defined in a function but are defined as static so they retain their address across subsequent calls. Examples, in C, include: 
 
-```objectivec
+```c
 int val = 3;
 char string[] = "Hello World";
 ```

@@ -11,7 +11,7 @@ int main() {
   (*pointer_to_n)++;
 
   /* testing code */
-  if (pointer_to_n != &n) return 1;
+  if (pointer_to_n != &n)  return 1;
   if (*pointer_to_n != 11) return 1;
 
   printf("Done!\n");
