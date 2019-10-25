@@ -29,7 +29,7 @@ The code segment also known as a **text segment**, is where a portion of an obje
 
 ### Data
 
-The .data segment contains any global or static variables which have a pre-defined value and can be modified. That is any variables that are not defined within a function (and thus can be accessed from anywhere) or are defined in a function but are defined as static so they retain their address across subsequent calls. Examples, in C, include: 
+The **.data segment** contains any global or static variables which have a pre-defined value and can be modified. That is any variables that are not defined within a function (and thus can be accessed from anywhere) or are defined in a function but are defined as static so they retain their address across subsequent calls. Examples, in C, include: 
 
 ```c
 int val = 3;
@@ -41,19 +41,20 @@ Note that in the above example, if these variables had been declared from within
 
 ### BSS
 
-The BSS segment, also known as uninitialized data, is usually adjacent to the data segment. The BSS segment contains all global variables and static variables that are initialized to zero or do not have explicit initialization in source code. For instance, a variable defined as static int i; would be contained in the BSS segment. 
+The **BSS segment**, also known as uninitialized data, is usually adjacent to the data segment. The BSS segment contains all global variables and static variables that are initialized to zero or do not have explicit initialization in source code. For instance, a variable defined as static int i; would be contained in the BSS segment. 
 
 ### Heap
 
-The heap area commonly begins at the end of the .bss and .data segments and grows to larger addresses from there. The heap area is managed by malloc, calloc, realloc, and free, which may use the brk and sbrk system calls to adjust its size (note that the use of brk/sbrk and a single "heap area" is not required to fulfill the contract of malloc/calloc/realloc/free; they may also be implemented using mmap/munmap to reserve/unreserve potentially non-contiguous regions of virtual memory into the process' virtual address space). The heap area is shared by all threads, shared libraries, and dynamically loaded modules in a process. 
+The **heap area** commonly begins at the end of the .bss and .data segments and grows to larger addresses from there. The heap area is managed by malloc, calloc, realloc, and free, which may use the brk and sbrk system calls to adjust its size (note that the use of brk/sbrk and a single "heap area" is not required to fulfill the contract of malloc/calloc/realloc/free; they may also be implemented using mmap/munmap to reserve/unreserve potentially non-contiguous regions of virtual memory into the process' virtual address space). The heap area is shared by all threads, shared libraries, and dynamically loaded modules in a process. 
 
 ### Stack
 
-The stack area contains the program stack, a LIFO structure, typically located in the higher parts of memory. A "stack pointer" register tracks the top of the stack; it is adjusted each time a value is "pushed" onto the stack. The set of values pushed for one function call is termed a "stack frame". A stack frame consists at minimum of a return address. Automatic variables are also allocated on the stack.
+The **stack** area contains the program stack, a LIFO structure, typically located in the higher parts of memory. A "stack pointer" register tracks the top of the stack; it is adjusted each time a value is "pushed" onto the stack. The set of values pushed for one function call is termed a "stack frame". A stack frame consists at minimum of a return address. Automatic variables are also allocated on the stack.
 
 The stack area traditionally adjoined the heap area and they grew towards each other; when the stack pointer met the heap pointer, free memory was exhausted. With large address spaces and virtual memory techniques they tend to be placed more freely, but they still typically grow in a converging direction. On the standard PC x86 architecture the stack grows toward address zero, meaning that more recent items, deeper in the call chain, are at numerically lower addresses and closer to the heap. On some other architectures it grows the opposite direction. 
 
 [Where the top of the stack is on x86 ](https://eli.thegreenplace.net/2011/02/04/where-the-top-of-the-stack-is-on-x86/)
+[The stack](https://revers.engineering/applied-re-the-stack/)
 
 Every process has at least one thread and every thread has its own stack. And within the stack of every thread, each function has its own stack frame.
 
@@ -65,9 +66,13 @@ The EBP is the beginning of a stack frame.
 
 The ESP always points to the top of the stack. If something is added to the stack, the stack grows. This means the ESP needs to be corrected to the point the new "top" of the stack, which is done by decrementing the ESP.
 
-**Heap**
+**Instruction Pointer (EIP)**
 
-The heap is memory space that can be allocated by a process when it needs more memory. Each process has one heap and it shared among the different threads.
+The IP register contains the address of the next instruction to be executed if no branching is done. IP can only be read through the stack after a `call` instruction.
+
+**Memory**
+
+The x86 architecture is little-endian, meaning that multi-byte values are written least significant byte first. (This refers only to the ordering of the bytes, not to the bits.) 
 
 ## Registers
 
@@ -110,14 +115,6 @@ The EFLAGS is a 32-bit register used as a collection of bits representing Boolea
 |19|VIF|Virtual Interrupt Flag|Virtual image of IF|
 |20|VIP|Virtual Interrupt Pending flag|Set if an interrupt is pending|
 |21|ID|Identification Flag|Support for CPUID instruction if can be set|
-
-**Instruction Pointer (EIP)**
-
-The IP register contains the address of the next instruction to be executed if no branching is done. IP can only be read through the stack after a `call` instruction.
-
-**Memory**
-
-The x86 architecture is little-endian, meaning that multi-byte values are written least significant byte first. (This refers only to the ordering of the bytes, not to the bits.) 
 
 ## Assembler instructions 
 
@@ -283,6 +280,7 @@ In an arithmetic shift, the bits that are shifted out of either end are discarde
 ```
 
 **RIGHT-SHIFT** - Bits are shift to the right and the sign bit is shifted in on the left
+
 ``` 
 10010111
 11001011
@@ -332,3 +330,5 @@ Variant of the rotate operation, where the bit that is shifted in is the old val
 00010111 C 1
 10001011
 ```
+
+

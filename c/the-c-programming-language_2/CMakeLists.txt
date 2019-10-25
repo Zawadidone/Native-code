@@ -16,3 +16,7 @@ add_executable(char char.c)
 add_executable(getchar getchar.c)
 
 add_executable(wc wc.c)
+
+add_executable(power power.c)
+
+add_executable(get_char get_char.c)

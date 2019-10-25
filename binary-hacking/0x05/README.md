@@ -12,7 +12,7 @@ Dump of assembler code for function main:
    0x00000000004005c5 <+8>:     mov    DWORD PTR [rbp-0x4],edi
    0x00000000004005c8 <+11>:    mov    QWORD PTR [rbp-0x10],rsi 
    0x00000000004005cc <+15>:    cmp    DWORD PTR [rbp-0x4],0x2
-   0x00000000004005d0 <+19>:    jne    0x400623 <main+102> ; if argument 1 is none jmp to 623
+   0x00000000004005d0 <+19>:    jne    0x400623 <main+102> ; if argument 1 is none jmp to main+102
    0x00000000004005d2 <+21>:    mov    rax,QWORD PTR [rbp-0x10]
    0x00000000004005d6 <+25>:    add    rax,0x8
    0x00000000004005da <+29>:    mov    rax,QWORD PTR [rax]
