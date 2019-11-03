@@ -36,3 +36,13 @@ add_executable(ex16-struct ex16-struct.c)
 add_executable(ex17 ex17.c)
 
 add_executable(ex18 ex18.c)
+
+add_executable(strings strings.c)
+
+add_executable(ex19 ex19.c)
+
+add_executable(convert convert.c)
+
+add_executable(ex22 ex22.c)
+
+add_executable(ex22_main ex22_main.c)
