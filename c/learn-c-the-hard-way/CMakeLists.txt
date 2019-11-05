@@ -46,3 +46,7 @@ add_executable(convert convert.c)
 add_executable(ex22 ex22.c)
 
 add_executable(ex22_main ex22_main.c)
+
+add_executable(ex24 ex24.c)
+
+add_executable(const const.c)
