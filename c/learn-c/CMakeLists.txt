@@ -43,3 +43,5 @@ add_executable(recursion recursion.c)
 add_executable(recursion-fact recursion-fact.c)
 
 add_executable(test test.c)
+
+add_executable(linked_lists linked_lists.c)

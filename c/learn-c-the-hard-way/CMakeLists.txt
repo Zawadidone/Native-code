@@ -50,3 +50,7 @@ add_executable(ex22_main ex22_main.c)
 add_executable(ex24 ex24.c)
 
 add_executable(const const.c)
+
+add_executable(ex25 ex25.c)
+
+add_executable(ex26 ex26.c)

@@ -20,3 +20,9 @@ add_executable(wc wc.c)
 add_executable(power power.c)
 
 add_executable(get_char get_char.c)
+
+add_executable(recursion recursion.c)
+
+add_executable(point-array point-array.c)
+
+add_executable(struct struct.c)
