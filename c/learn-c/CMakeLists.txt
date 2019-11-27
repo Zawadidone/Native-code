@@ -45,3 +45,11 @@ add_executable(recursion-fact recursion-fact.c)
 add_executable(test test.c)
 
 add_executable(linked_lists linked_lists.c)
+
+add_executable(binary_trees binary_trees.c)
+
+add_executable(unions unions.c)
+
+add_executable(pointer_arithmetics pointer_arithmetics.c)
+
+add_executable(function_pointers function_pointers.c)

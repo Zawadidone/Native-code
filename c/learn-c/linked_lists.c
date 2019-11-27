@@ -34,13 +34,17 @@ int pop(node_t ** head) {
 int remove_by_value(node_t ** head, int val) {
 	/* TODO: fill in your code here */
 	node_t * current = *head;
-	nodet
+	node_t * delete = NULL;
 	while (current->next != NULL){
-		if(current->val == val){
-			current->next =
+		if (current->next->val == val){
+			delete = current->next;
+			current->next = current->next->next;
+			break;
 		}
 		current = current->next;
 	}
+
+	free(delete);
 
 	return 0;
 }
