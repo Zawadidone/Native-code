@@ -54,9 +54,9 @@ The following instructions check if the license is correct with the use of strcm
 0x000000000040060b <+78>:    mov    edi,0x4006ea
 0x0000000000400610 <+83>:    call   0x400480 <puts@plt> ; prints "Access Granted!"
 ```
-If the zeroflag is not set (if eax=1) the jne jumps to address 617 and prints "WRONG!". To "crack" the program the result of the bitwise operation and on address 607 should be 0, then the ZF is set and the jump doesn't happen and the program continues execution of instructions.
+If the zeroflag is not set (if eax=1) the jne jumps to address 617 and prints "WRONG!". To "crack" the program the result of the bitwise operation and on address 607 should be 0, then the ZF is set and the jump doesn't happen and the program continues execution of instructions. This could also be done by just enabling the ZF.
 
-With the help of GDB I have set ea to the value 0. That is why the ZF is set and the jump does not happen and the program prints "Access Granted!":
+With the help of GDB I have set eax to the value 0. That is why the ZF is set and the jump does not happen and the program prints "Access Granted!":
 ```gdb
 0x0000000000400607 in main ()
 (gdb) p $eflags
