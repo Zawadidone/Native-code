@@ -6,7 +6,6 @@ int main(void)
 
     printf("Enter integer between 1-3:");
     scanf("%d", &i);
-
     switch(i)
     {
         case 1:

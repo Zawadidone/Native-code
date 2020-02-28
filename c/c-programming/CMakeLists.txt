@@ -48,5 +48,3 @@ add_executable(point_array point_array.c)
 add_executable(reverse reverse.c)
 
 add_executable(sentence_line sentence_line.c)
-
-add_executable(star star.c)

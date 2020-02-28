@@ -1,28 +1,13 @@
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.0.0)
+#project(the-c-programming-language-2 VERSION 0.1.0)
 project(the-c-programming-language-2 C)
 
-set(CMAKE_C_STANDARD 99)
+#include(CTest)
+#enable_testing()
 
-add_executable(hello-world hello-world.c)
 
-add_executable(temperature while.c)
-
-add_executable(temperature-for for.c)
-
-add_executable(define define.c)
+#set(CPACK_PROJECT_NAME ${PROJECT_NAME})
+#set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
+#include(CPack)
 
 add_executable(char char.c)
-
-add_executable(getchar getchar.c)
-
-add_executable(wc wc.c)
-
-add_executable(power power.c)
-
-add_executable(get_char get_char.c)
-
-add_executable(recursion recursion.c)
-
-add_executable(point-array point-array.c)
-
-add_executable(struct struct.c)
