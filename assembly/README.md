@@ -4,6 +4,8 @@
 
 [x86 Assembly Wiki](https://en.wikibooks.org/wiki/X86_Assembly)
 
+[x64 cheatsheet](https://cs.brown.edu/courses/cs033/docs/guides/x64_cheatsheet.pdf)
+
 |Defintion|Description|
 |---|---|
 |Registers|Small areas of memory located on the CPU, where you can store and manipulate data|
