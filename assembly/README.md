@@ -1,5 +1,7 @@
 # Assembly X86 - 64-bit version of the x86 instruction set
 
+[x86 Instruction Set Reference](https://c9x.me/x86/)
+
 [x86 Assembly Guide](https://www.cs.virginia.edu/~evans/cs216/guides/x86.html)
 
 [x86 Assembly Wiki](https://en.wikibooks.org/wiki/X86_Assembly)
