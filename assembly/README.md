@@ -1,4 +1,6 @@
-# Assembly X86 - 64-bit version of the x86 instruction set
+# Assembly X86 
+
+[Guide to Assembly](https://www.timdbg.com/posts/fakers-guide-to-assembly/)
 
 [x86 Instruction Set Reference](https://c9x.me/x86/)
 
